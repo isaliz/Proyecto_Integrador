@@ -1,7 +1,6 @@
 package com.example.proyectoIntegradorSpring;
 
 import Services.OdontologoService;
-import com.example.proyectoIntegradorSpring.array.OdontologoArray;
 import com.example.proyectoIntegradorSpring.model.Odontologo;
 import org.apache.log4j.Logger;
 import org.junit.Test;
