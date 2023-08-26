@@ -6,7 +6,7 @@ public class Turno {
     private List<Paciente> pacientes;
     private Odontologo odontologos;
     private LocalDateTime fechaYHora;
-   
+
 
 
 
