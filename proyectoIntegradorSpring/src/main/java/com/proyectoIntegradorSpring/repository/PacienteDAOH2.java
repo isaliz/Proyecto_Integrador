@@ -1,7 +1,6 @@
 package com.proyectoIntegradorSpring.repository;
 
 import com.proyectoIntegradorSpring.Connection.BD;
-import com.proyectoIntegradorSpring.entity.Domicilio;
 import com.proyectoIntegradorSpring.entity.Paciente;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Repository;
@@ -28,14 +27,11 @@ public class PacienteDAOH2 implements iDao<Paciente>{
 
         try{
             connection= BD.getConnection();
-            DomicilioDAOH2 daoAux= new DomicilioDAOH2();
-            Domicilio domicilio= daoAux.guardar(paciente.getDomicilio());
             PreparedStatement psInsert= connection.prepareStatement(SQL_INSERT, Statement.RETURN_GENERATED_KEYS);
             psInsert.setString(1, paciente.getNombre());
             psInsert.setString(2, paciente.getApellido());
             psInsert.setString(3, paciente.getCedula());
             psInsert.setDate(4, Date.valueOf(paciente.getFechaIngreso()));
-            psInsert.setInt(5,domicilio.getId());
             psInsert.setString(6,paciente.getEmail());
             psInsert.execute();
             ResultSet clave= psInsert.getGeneratedKeys();
@@ -61,16 +57,13 @@ public class PacienteDAOH2 implements iDao<Paciente>{
         logger.info("inicio de operacion de : BUSCADO ");
         Connection connection= null;
         Paciente paciente= null;
-        Domicilio domicilio=null;
-        DomicilioDAOH2 daoAux= new DomicilioDAOH2();
         try{
             connection= BD.getConnection();
             PreparedStatement psSelectOne= connection.prepareStatement(SQL_SELECT_ONE);
             psSelectOne.setInt(1,id);
             ResultSet rs= psSelectOne.executeQuery();
             while (rs.next()){
-                domicilio= daoAux.buscar(rs.getInt(6));
-                paciente= new Paciente(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getDate(5).toLocalDate(),domicilio,rs.getString(7));
+                paciente= new Paciente(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getDate(5).toLocalDate(),rs.getString(7));
 
             }
 
@@ -112,8 +105,6 @@ public class PacienteDAOH2 implements iDao<Paciente>{
 
         try{
             connection= BD.getConnection();
-            DomicilioDAOH2 daoAux= new DomicilioDAOH2();
-            daoAux.actualizar(paciente.getDomicilio());
             PreparedStatement psUpdate= connection.prepareStatement(SQL_UPDATE);
             //vienen las parametrizadas
             //  NOMBRE=?, APELLIDO=?, CEDULA=?, FECHA_INGRESO=?, DOMICILIO_ID=?, EMAIL=? WHERE ID=?"
@@ -121,7 +112,6 @@ public class PacienteDAOH2 implements iDao<Paciente>{
             psUpdate.setString(2,paciente.getApellido());
             psUpdate.setString(3, paciente.getCedula());
             psUpdate.setDate(4,Date.valueOf(paciente.getFechaIngreso()));
-            psUpdate.setInt(5,paciente.getDomicilio().getId());
             psUpdate.setString(6, paciente.getEmail());
             psUpdate.setInt(7,paciente.getId());
             psUpdate.execute(); //persistir en la bdd
@@ -145,15 +135,12 @@ public class PacienteDAOH2 implements iDao<Paciente>{
         Connection connection= null;
         List<Paciente> pacientes = new ArrayList<>();
         Paciente paciente= null;
-        Domicilio domicilio= null;
-        DomicilioDAOH2 daoAux= new DomicilioDAOH2();
         try{
             connection= BD.getConnection();
             PreparedStatement psSelectAll= connection.prepareStatement(SQL_SELECT_ALL);
             ResultSet rs= psSelectAll.executeQuery();
             while (rs.next()){
-                domicilio= daoAux.buscar(rs.getInt(6));
-                paciente= new Paciente(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getDate(5).toLocalDate(),domicilio,rs.getString(7));
+                paciente= new Paciente(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getDate(5).toLocalDate(),rs.getString(7));
                 pacientes.add(paciente);
             }
 
@@ -174,16 +161,13 @@ public class PacienteDAOH2 implements iDao<Paciente>{
         logger.info("inicio de operacion de : buscado por Email:  "+valor);
         Connection connection= null;
         Paciente paciente= null;
-        Domicilio domicilio=null;
-        DomicilioDAOH2 daoAux= new DomicilioDAOH2();
         try{
             connection= BD.getConnection();
             PreparedStatement psSelectEmail= connection.prepareStatement(SQL_SELECT_BY_EMAIL);
             psSelectEmail.setString(1,valor);
             ResultSet rs= psSelectEmail.executeQuery();
             while (rs.next()){
-                domicilio= daoAux.buscar(rs.getInt(6));
-                paciente= new Paciente(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getDate(5).toLocalDate(),domicilio,rs.getString(7));
+                paciente= new Paciente(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getDate(5).toLocalDate(),rs.getString(7));
 
             }
 

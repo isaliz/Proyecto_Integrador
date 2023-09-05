@@ -1,2 +1,6 @@
 [2023-08-26 15:31:59] [ INFO ] [BD:36] datos de prueba cargados exitosamente
 [2023-08-26 15:32:24] [ INFO ] [OdontologoDAOH2:147] devuelve la lista
+[2023-09-04 21:57:38] [ INFO ] [BD:36] datos de prueba cargados exitosamente
+[2023-09-04 21:58:01] [ INFO ] [OdontologoDAOH2:147] devuelve la lista
+[2023-09-04 21:58:08] [ INFO ] [OdontologoDAOH2:23] inicio de operacion de Guardado de un Odontologo : 321
+[2023-09-04 21:58:15] [ INFO ] [OdontologoDAOH2:147] devuelve la lista
