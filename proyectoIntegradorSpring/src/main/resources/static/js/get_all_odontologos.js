@@ -1,64 +1,99 @@
+// Este código carga una lista de odontólogos de una API y los muestra en una tabla.
+
 window.addEventListener('load', function () {
+
+    // Obtiene la lista de odontólogos de la API.
     (function(){
 
-      //con fetch invocamos a la API de peliculas con el método GET
-      //nos devolverá un JSON con una colección de peliculas
-      const url = '/odontologos';
-      const settings = {
-        method: 'GET'
-      }
-
-      fetch(url,settings)
-      .then(response => response.json())
-      .then(data => {
-      //recorremos la colección de peliculas del JSON
-         for(odontologo of data){
-            //por cada pelicula armaremos una fila de la tabla
-            //cada fila tendrá un id que luego nos permitirá borrar la fila si eliminamos la pelicula
-            var table = document.getElementById("odontologosTable");
-            var odontologoRow =table.insertRow();
-            let tr_id = 'tr_' + odontologo.id;
-            odontologoRow.id = tr_id;
-
-            //por cada pelicula creamos un boton delete que agregaremos en cada fila para poder eliminar la misma
-            //dicho boton invocara a la funcion de java script deleteByKey que se encargará
-            //de llamar a la API para eliminar una pelicula
-            let deleteButton = '<button' +
-                                      ' id=' + '\"' + 'btn_delete_' + odontologo.id + '\"' +
-                                      ' type="button" oneclick="deleteBy('+odontologo.id+')" class="btn btn-danger btn_delete">' +
-                                      '&times' +
-                                      '</button>';
-
-            //por cada pelicula creamos un boton que muestra el id y que al hacerle clic invocará
-            //a la función de java script findBy que se encargará de buscar la pelicula que queremos
-            //modificar y mostrar los datos de la misma en un formulario.
-            let updateButton = '<button' +
-                                      ' id=' + '\"' + 'btn_id_' + odontologo.id + '\"' +
-                                      ' type="button" onclick="findBy('+odontologo.id+')" class="btn btn-info btn_id">' +
-                                      odontologo.id +
-                                      '</button>';
-
-            //armamos cada columna de la fila
-            //como primer columna pondremos el boton modificar
-            //luego los datos de la pelicula
-            //como ultima columna el boton eliminar
-            odontologoRow.innerHTML = '<td>' + odontologo.id + '</td>' +
-                    '<td class=\"td_titulo\">' + odontologo.nombre.toUpperCase() + '</td>' +
-                     '<td class=\"td_titulo\">' + odontologo.apellido.toUpperCase() + '</td>' +
-                    '<td class=\"td_categoria\">' + odontologo.matricula.toUpperCase() + '</td>' +
-                    '<td>' + deleteButton + '</td>';
-
+        const url = '/odontologos';
+        const settings = {
+            method: 'GET'
         };
 
-    })
-    })
+        fetch(url, settings)
+            .then(response => response.json())
+            .then(data => {
 
+                // Crea una fila de tabla para cada odontólogo.
+                for (odontologo of data) {
+
+                     // Crea un botón de modificar para cada odontólogo.
+                    let updateButton = '<button id="btn_id_' + odontologo.id + '" type="button" onclick="updateBy(' + odontologo.id + ')" class="btn btn-info btn_id">' + odontologo.id + '</button>';
+                    // Crea la fila de tabla.
+                    var table = document.getElementById("odontologosTable");
+                    var odontologoRow = table.insertRow();
+                    table.innerHTML = odontologos.map(odontologo => `
+                    <tr id="tr_${odontologo.id}">
+                        <td>${odontologo.id}</td>
+                        <td>${odontologo.nombre}</td>
+                        <td>${odontologo.apellido}</td>
+                        <td>${odontologo.matricula}</td>
+                         <td><button class="btn btn-info" onclick="updateBy(${odontologo.id})">Actualizar</button></td>
+                        <td><button class="btn btn-danger" onclick="deleteBy(${odontologo.id})">Eliminar</button></td>
+                    </tr>
+                    `).join("");
+                }
+
+            });
+
+    })();
+
+    // Marca la navegación como activa.
     (function(){
-      let pathname = window.location.pathname;
-      if (pathname == "/get_all_odontologos.html") {
-          document.querySelector(".nav .nav-item a:last").addClass("active");
-      }
-    })
+        let pathname = window.location.pathname;
+        if (pathname == "/get_all_odontologos.html") {
+            document.querySelector(".nav .nav-item a:last").addClass("active");
+        }
+    })();
 
+});
 
-    })
+// Actualiza la tabla con los nuevos datos despues de eliminar
+fetch('/odontologos')
+    .then(response => response.json())
+    .then(odontologos => {
+        // Actualiza la tabla con los nuevos odontólogos.
+        var table = document.getElementById("odontologosTable");
+        table.innerHTML = odontologos.map(odontologo => `
+            <tr id="tr_${odontologo.id}">
+                <td>${odontologo.id}</td>
+                <td>${odontologo.nombre}</td>
+                <td>${odontologo.apellido}</td>
+                <td>${odontologo.matricula}</td>
+                <td><button class="btn btn-info" onclick="updateButton(${odontologo.id})">Actualizar</button></td>
+                <td><button class="btn btn-danger" onclick="deleteBy(${odontologo.id})">Eliminar</button></td>
+            </tr>
+        `).join("");
+    });
+
+/// Función para actualizar los datos de un odontólogo.
+ function updateBy(id) {
+
+     // Obtiene los datos del odontólogo a actualizar.
+     const odontologo = document.querySelector(`#tr_${id}`).querySelectorAll("td")[1].textContent;
+
+     // Crea un objeto con los datos del odontólogo actualizado.
+     const odontologoActualizado = {
+         id: id,
+         nombre: document.querySelector(`#tr_${id}`).querySelectorAll("td")[2].textContent,
+         apellido: document.querySelector(`#tr_${id}`).querySelectorAll("td")[3].textContent,
+         matricula: document.querySelector(`#tr_${id}`).querySelectorAll("td")[4].textContent
+     };
+
+     // Actualiza el odontólogo en la API.
+     (async () => {
+         const url = '/odontologos/' + id;
+         const settings = {
+             method: 'PUT',
+             body: JSON.stringify(odontologoActualizado)
+         };
+
+         await fetch(url, settings);
+     })();
+
+     // Actualiza la tabla con los datos del odontólogo actualizado.
+     document.querySelector(`#tr_${id}`).querySelectorAll("td")[2].textContent = odontologoActualizado.nombre;
+     document.querySelector(`#tr_${id}`).querySelectorAll("td")[3].textContent = odontologoActualizado.apellido;
+     document.querySelector(`#tr_${id}`).querySelectorAll("td")[4].textContent = odontologoActualizado.matricula;
+ }
+
