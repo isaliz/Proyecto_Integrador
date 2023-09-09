@@ -1,21 +1,22 @@
 window.addEventListener('load', function () {
 
 
-    const formulario = document.querySelector('#add_new_odontologo');
+    const formulario = document.querySelector('#add_new_paciente');
 
 
     formulario.addEventListener('submit', function (event) {
 
 
         const formData = {
-
             nombre: document.querySelector('#nombre').value,
             apellido: document.querySelector('#apellido').value,
-            matricula: document.querySelector('#matricula').value,
+            dni: document.querySelector('#dni').value,
+            domicilio: document.querySelector('#domicilio').value,
+            fecha: document.querySelector('#fecha').value,
 
         };
 
-        const url = '/odontologos';
+        const url = '/pacientes';
         const settings = {
             method: 'POST',
             headers: {
@@ -30,7 +31,7 @@ window.addEventListener('load', function () {
 
                  let successAlert = '<div class="alert alert-success alert-dismissible">' +
                      '<button type="button" class="close" data-dismiss="alert">&times;</button>' +
-                     '<strong></strong> Odontologo agregado </div>'
+                     '<strong></strong> paciente agregado </div>'
 
                  document.querySelector('#response').innerHTML = successAlert;
                  document.querySelector('#response').style.display = "block";
@@ -53,7 +54,9 @@ window.addEventListener('load', function () {
     function resetUploadForm(){
         document.querySelector('#nombre').value = "";
         document.querySelector('#apellido').value = "";
-         document.querySelector('#matricula').value = "";
+        document.querySelector('#dni').value = "";
+        document.querySelector('#domicilio').value = "";
+        document.querySelector('#fecha').value = "";
 
     }
 
