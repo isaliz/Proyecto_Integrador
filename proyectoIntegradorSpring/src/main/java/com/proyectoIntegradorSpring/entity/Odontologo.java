@@ -30,5 +30,8 @@ public class Odontologo {
    /* @OneToMany(mappedBy ="odontologo", fetch = FetchType.LAZY)
     @JsonIgnore
     private Set<Turno> turnos= new HashSet<>();
+
+
+    /se tiene documentado hasta crear la clase turno
 */
 }

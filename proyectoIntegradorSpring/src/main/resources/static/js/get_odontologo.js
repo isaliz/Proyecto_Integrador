@@ -42,7 +42,7 @@ window.addEventListener('load', function () {
     // Marca la navegación como activa.
     (function () {
         const pathname = window.location.pathname;
-        if (pathname == "/get_all_odontologos.html") {
+        if (pathname == "./get_all_odontologos.html") {
             document.querySelector(".nav .nav-item a:last").classList.add("active");
         }
     })();
