@@ -52,7 +52,7 @@
   </div>
 </nav>
 <div class="row">
-  <div class="col-sm-7" style="background-color:#e6fffa; padding:10px; border-radius:3px">
+  <div class="col-sm-7" style="background-color:#e6fffa; padding:30px; border-radius:3px">
     <h3>Agregar Odontologo</h3>
     <form id="add_new_odontologo">
       <div class="form-group">
@@ -74,10 +74,11 @@
                placeholder="Ingrese la Matricula"
                name="matricula" required></input>
       </div>
+      <br>
+      <div class="d-grid gap-2 d-md-block">
+        <button class="btn btn-danger" type="submit" id="btn-add-new-odontologo">Guardar</button>
+      </div>
 
-
-      <button type="submit" class="btn btn-danger"
-              id="btn-add-new-premio">Guardar</button>
     </form>
     <div id="response" style="display:none; margin-top:10px">
     </div>
