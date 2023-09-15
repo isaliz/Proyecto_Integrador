@@ -1,6 +1,6 @@
 package com.proyectoIntegradorSpring.entity;
 
-public enum Role {
+public enum UsuarioRole {
     ROLE_USER
 
 }

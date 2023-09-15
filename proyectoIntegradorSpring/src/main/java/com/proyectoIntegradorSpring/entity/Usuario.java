@@ -4,13 +4,16 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+
+
+
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Collections;
 
 @Entity
 @Table(name = "usuarios")
-public class User implements UserDetails {
+public class Usuario implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -23,9 +26,9 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private String password;
     @Column
-    private Role usuarioRole;
+    private UsuarioRole usuarioRole;
 
-    public User(String nombre, String userName, String email, String password, Role usuarioRole) {
+    public Usuario(String nombre, String userName, String email, String password, UsuarioRole usuarioRole) {
         this.nombre = nombre;
         this.userName = userName;
         this.email = email;
@@ -33,10 +36,10 @@ public class User implements UserDetails {
         this.usuarioRole = usuarioRole;
     }
 
-    public User() {
+    public Usuario() {
     }
 
-    public User(Long id, String nombre, String userName, String email, String password, Role usuarioRole) {
+    public Usuario(Long id, String nombre, String userName, String email, String password, UsuarioRole usuarioRole) {
         this.id = id;
         this.nombre = nombre;
         this.userName = userName;
@@ -111,11 +114,11 @@ public class User implements UserDetails {
         this.password = password;
     }
 
-    public Role getUsuarioRole() {
+    public UsuarioRole getUsuarioRole() {
         return usuarioRole;
     }
 
-    public void setUsuarioRole(Role usuarioRole) {
+    public void setUsuarioRole(UsuarioRole usuarioRole) {
         this.usuarioRole = usuarioRole;
     }
 
