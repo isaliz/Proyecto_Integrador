@@ -16,7 +16,7 @@ async function getTurnos() {
 }
 
 // Crea una fila de tabla para cada turno.
-function createTurnoRow(turno, odontologos) {
+function createTurnoRow(turno) {
   const table = document.getElementById('turnoTable');
   const turnoRow = table.insertRow();
 

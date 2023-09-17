@@ -20,8 +20,7 @@ public class CargadorInicial implements ApplicationRunner {
         // necesito la password
         BCryptPasswordEncoder cifrador = new BCryptPasswordEncoder();
         String clave = cifrador.encode("isabel");
-        String clave2 = cifrador.encode("user");
-        String clave3 = cifrador.encode("miguel");
+        String clave2 = cifrador.encode("miguel");
         System.out.println("CLAVE CIFRADA: " + cifrador);
         Usuario usuario1 = new Usuario("Isabel Lizarralde", "isabel", "isabel@gmail.com", clave, UsuarioRole.ADMIN);
         Usuario usuario2 = new Usuario("Miguel Buitrago", "miguel", "miguel@gmail.com", clave2, UsuarioRole.ADMIN);

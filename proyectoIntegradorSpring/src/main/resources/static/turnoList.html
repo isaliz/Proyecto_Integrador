@@ -74,8 +74,8 @@
     </div>
   </div>
 </nav>
-<div id="div_odontologos_table">
-  <h1 style="padding: 20px" >Odontologo</h1>
+<div id="div_turno_table">
+  <h1 style="padding: 20px" >Turnos</h1>
   <div style="padding: 20px">
   <div class="row col-md-6 table-responsive">
     <table id="turnoTable" class="table table-striped">
@@ -89,8 +89,7 @@
         <th>Editar/Eliminar</th>
       </tr>
       </thead>
-      <tbody>
-      <th></th>
+      <tbody id="turnoTableBody">
       </tbody>
     </table>
   </div>
@@ -119,8 +118,16 @@
         <input type="number" class="form-control" id="odontologo" name="odontologo" readonly/>
       </div>
       <div class="form-group">
+        <label class="control-label" for="odontologo">Odontologo:</label>
+        <input type="text" class="form-control" id="odontologoname" name="odontologoname" required/>
+      </div>
+      <div class="form-group">
         <label class="control-label" for="paciente">ID del paciente:</label>
         <input type="number" class="form-control" id="paciente" name="paciente" readonly/>
+      </div>
+      <div class="form-group">
+        <label class="control-label" for="paciente">paciente:</label>
+        <input type="text" class="form-control" id="pacientenombre" name="pacientenombre" required/>
       </div>
       <button type="submit" class="btn btn-success">Modificar</button>
     </form>

@@ -31,8 +31,7 @@ window.addEventListener('load', function () {
                     <td>${odontologo.nombre}</td>
                     <td>${odontologo.apellido}</td>
                     <td>${odontologo.matricula}</td>
-                    <td>${updateButton}</td>
-                    <td>${deleteButton}</td>
+                    <td>${updateButton} </td> <td> ${deleteButton}</td>
                 </tr>
             `;
         }

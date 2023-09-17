@@ -36,7 +36,9 @@
               document.querySelector('#date').value = turno.date;
               document.querySelector('#time').value = turno.time;
               document.querySelector('#odontologo').value = turno.odontologo.id,
+              document.querySelector('#odontologoname').value = turno.odontologo.nombre+' '+turno.odontologo.apellido,
               document.querySelector('#paciente').value = turno.paciente.id
+              document.querySelector('#pacientenombre').value = turno.paciente.nombre+' '+turno.paciente.apellido,
               document.querySelector('#divFormUpdate').style.display = "block";
           }).catch(error => {
               alert("Error: " + error);

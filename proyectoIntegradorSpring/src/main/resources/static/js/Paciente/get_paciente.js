@@ -33,8 +33,7 @@ window.addEventListener('load', function () {
                     <td>${paciente.dni}</td>
                     <td>${paciente.domicilio}</td>
                     <td>${paciente.fecha}</td>
-                    <td>${updateButton}</td>
-                    <td>${deleteButton}</td>
+                    <td>${updateButton} </td> <td> ${deleteButton}</td>
                 </tr>
             `;
         }
